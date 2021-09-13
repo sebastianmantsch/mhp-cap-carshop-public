@@ -91,5 +91,6 @@ build-parameters:
   before-all:
   - builder: custom
     commands:
+    - npm config set strict-ssl false
     - npm install --production
     - npx -p @sap/cds-dk cds build --production
