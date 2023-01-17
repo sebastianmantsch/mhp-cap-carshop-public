@@ -70,6 +70,7 @@ entity Orders : cuid, managed
     virtual total : Decimal(9,2)
         @readonly;
     currency : Currency;
+    price : Decimal(9,2);
     key customer : Association to one Customer;
 }
 

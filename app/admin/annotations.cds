@@ -24,9 +24,6 @@ annotate service.Orders with @(UI : {
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Description}', Target: '@UI.FieldGroup#Descr'},
 		],
         
-		Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Price'},
-		],
 		FieldGroup#Descr: {
 			Data: [
 				{Value: OrderNo},
@@ -68,3 +65,29 @@ annotate service.Orders with {
 
 
 
+annotate service.Orders with @(
+    UI.FieldGroup #carInfo : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : Items.car.model,
+            },
+        ],
+    }
+);
+annotate service.Orders with @(
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : '{i18n>Details}',
+            Target : '@UI.FieldGroup#Price',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'CarInfo',
+            ID : 'carinfo',
+            Target : '@UI.FieldGroup#carInfo',
+        },
+    ]
+);
