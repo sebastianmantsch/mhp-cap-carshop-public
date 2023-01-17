@@ -26,6 +26,7 @@ mta_archives/
 *.flattened-pom.xml
 
 */dist/*
+*/resources/*
 
 # IDEs
 # .vscode
