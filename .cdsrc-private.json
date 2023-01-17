@@ -1,0 +1,21 @@
+{
+  "requires": {
+    "[hybrid]": {
+      "auth": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.eu10-004.hana.ondemand.com",
+          "org": "MHP-sbx-dev-cf-3bhvsswrqvzklvcq",
+          "space": "dev",
+          "instance": "carshop-uaa",
+          "key": "carshop-uaa-key",
+          "resolved": false
+        },
+        "kind": "xsuaa",
+        "vcap": {
+          "name": "auth"
+        }
+      }
+    }
+  }
+}

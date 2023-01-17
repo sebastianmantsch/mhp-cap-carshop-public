@@ -18,6 +18,7 @@ service CatalogService @(path:'/browse') {
     sum(OrderItems.amount) as total: Integer
   }  where OrderItems.parent.OrderNo = Orders.OrderNo;
 
+
  annotate Orders  with @odata.draft.enabled;
   annotate Cars with {
     price @Measures.Unit : currency_code @Measures.ISOCurrency : 'currency_code';

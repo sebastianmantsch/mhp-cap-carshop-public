@@ -6,6 +6,7 @@ service AdminService @(requires:'authenticated-user') {
   entity Orders as select from my.Orders;
 }
 
+
 // Enable Fiori Draft for Orders
 annotate AdminService.Orders with @odata.draft.enabled;
 

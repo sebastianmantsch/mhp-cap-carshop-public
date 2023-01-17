@@ -71,7 +71,7 @@ entity Orders : cuid, managed
         @readonly;
     currency : Currency;
     price : Decimal(9,2);
-    key customer : Association to one Customer;
+    customer : Association to one Customers;
 }
 
 entity OrderItems
@@ -83,7 +83,7 @@ entity OrderItems
     netAmount : Decimal(9,2);
 }
 
-entity Customer
+entity Customers @cds.autoexpose
 {
     key ID : UUID
         @Core.Computed;

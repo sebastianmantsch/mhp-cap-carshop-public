@@ -1,58 +1,66 @@
 {
-    "name": "carshop",
-    "version": "0.0.1",
-    "description": "Business Application",
-    "dependencies": {
-        "@sap/audit-logging": "5.6.3",
-        "@sap/cds": "6.4.0",
-        "@sap/cds-dk": "^6.4.0",
-        "@sap/hana-client": "2.15.19",
-        "@sap/xsenv": "3.4.0",
-        "@sap/xssec": "3.2.15",
-        "debug": "4.3.4",
-        "express": "4.18.2",
-        "passport": "0.6.0"
-    },
-    "scripts": {
-        "start": "npx cds run",
-        "watch-createorder": "cds watch --open createorder/webapp/index.html?sap-ui-xx-viewCache=false",
-        "undeploy": "cf undeploy carshop --delete-services --delete-service-keys --delete-service-brokers",
-        "build": "rimraf resources mta_archives && mbt build --mtar archive",
-        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
-    },
-    "cds": {
-        "requires": {
-            "uaa": {
-                "kind": "xsuaa"
-            },
-            "auth": {
-                "[production]": {
-                    "strategy": "JWT"
-                },
-                "[development]": {
-                    "strategy": "mock"
-                },
-                "kind": "xsuaa"
-            },
-            "db": {
-                "kind": "sqlite",
-                "model": "*",
-                "credentials": {
-                    "database": "carshop.db"
-                }
-            }
+  "name": "carshop",
+  "version": "0.0.1",
+  "description": "Business Application",
+  "dependencies": {
+    "@sap/audit-logging": "5.6.3",
+    "@sap/cds": "6.4.0",
+    "@sap/cds-dk": "^6.4.0",
+    "@sap/xsenv": "3.4.0",
+    "@sap/xssec": "^3.2.15",
+    "debug": "4.3.4",
+    "express": "4.18.2",
+    "hdb": "^0.19.0",
+    "passport": "^0.6.0",
+    "rimraf": "^3.0.2",
+    "sqlite3": "^5.0.2"
+  },
+  "scripts": {
+    "start": "npx cds run",
+    "watch-createorder": "cds watch --open createorder/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy carshop --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "cds": {
+    "requires": {
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "auth": {
+        "[production]": {
+          "strategy": "jwt"
         },
-        "hana": {
-            "deploy-format": "hdbtable"
+        "[development]": {
+          "strategy": "mock"
+        },
+        "kind": "jwt"
+      },
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": ":memory:"
         }
-    },
-    "sapux": [
-        "app/admin",
-        "app/browse",
-        "app/createorder"
-    ],
-    "devDependencies": {
-        "@sap/ux-specification": "latest",
-        "rimraf": "^3.0.2"
+      },
+      "features": {
+        "in_memory_db": true
+      },
+      "approuter": {
+        "kind": "cloudfoundry"
+      },
+      "[hybrid]": {
+        "auth": {
+          "kind": "xsuaa"
+        }
+      }
     }
+  },
+  "sapux": [
+    "app/admin",
+    "app/browse"
+  ],
+  "devDependencies": {
+    "@sap/ux-specification": "^1.102.14",
+    "rimraf": "^3.0.2"
+  }
 }
