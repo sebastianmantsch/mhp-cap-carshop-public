@@ -10,14 +10,12 @@ annotate service.Orders with @(UI : {
         
         LineItem: [
             {Value: OrderNo, Label: 'Order Number'},
-            {Value: total, Label:'Total'},
             {Value: price, Label: 'Price'},
             {Value: currency.symbol, Label:' '},
         ],
         HeaderInfo: {
             TypeName: 'Order',
-            TypeNamePlural: 'Orders',
-            Description: {Value : total}
+            TypeNamePlural: 'Orders'
         },
         
 		HeaderFacets: [
@@ -31,7 +29,6 @@ annotate service.Orders with @(UI : {
 		},
 		FieldGroup#Price: {
 			Data: [
-				{Value: total, Label: '{i18n>Price}'},
 				{Value: currency_code, Label: '{i18n>Currency}'},
 			]
 		},        

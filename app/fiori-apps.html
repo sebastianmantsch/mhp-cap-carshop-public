@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Bookshop</title>
+
+	<script>
+		window["sap-ushell-config"] = {
+			defaultRenderer: "fiori2",
+			"services": {
+				"LaunchPage": {
+					"adapter": {
+						"config": {
+							"catalogs": [],
+							"groups": [
+								{
+									"id": "Carshop",
+									"title": "Carshop",
+									"isPreset": true,
+									"isVisible": true,
+									"isGroupLocked": false,
+									"tiles": [
+										{
+											"id": "browse.browse",
+											"tileType": "sap.ushell.ui.tile.StaticTile",
+											"properties": {
+												"title": "Browse Cars",
+												"targetURL": "#Cars-display"
+											}
+										}
+									]
+								},
+								{
+									"id": "orders.admin",
+									"title": "Administration",
+									"isPreset": true,
+									"isVisible": true,
+									"isGroupLocked": false,
+									"tiles": [
+										{
+											"id": "orders.admin",
+											"tileType": "sap.ushell.ui.tile.StaticTile",
+											"properties": {
+												"title": "Manage Orders",
+												"targetURL": "#Orders-manage"
+											}
+										}
+
+									]
+								}
+							]
+						}
+					}
+				},
+				"NavTargetResolution": {
+					"config": {
+						"enableClientSideTargetResolution": true
+					}
+				},
+				"ClientSideTargetResolution": {
+					"adapter": {
+						"config": {
+							"inbounds": {
+								"BrowseCars": {
+									"semanticObject": "Cars",
+									"action": "display",
+									"title": "Browse Cars",
+									"signature": {
+										"parameters": {
+											"Cars.ID": {
+												"renameTo": "ID"
+											}
+										},
+										"additionalParameters": "allowed"
+									},
+									"resolutionResult": {
+										"applicationType": "SAPUI5",
+										"additionalInformation": "SAPUI5.Component=browse.browse",
+										"url": "/browse/webapp"
+									}
+								},
+								"ManageOrders": {
+									"semanticObject": "Orders",
+									"action": "manage",
+									"signature": {
+										"parameters": {},
+										"additionalParameters": "allowed"
+									},
+									"resolutionResult": {
+										"applicationType": "SAPUI5",
+										"additionalInformation": "SAPUI5.Component=orders.admin",
+										"url": "/admin/webapp"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+	</script>
+
+	<script id="sap-ushell-bootstrap"
+		src="https://sapui5.hana.ondemand.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+		data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration, sap.ui.layout" data-sap-ui-compatVersion="edge"
+		data-sap-ui-theme="sap_horizon" data-sap-ui-frameOptions="allow"></script>
+	<script>
+		sap.ui.getCore().attachInit(() => sap.ushell.Container.createRenderer().placeAt("content"))
+	</script>
+
+</head>
+
+<body class="sapUiBody" id="content"></body>
+
+</html>

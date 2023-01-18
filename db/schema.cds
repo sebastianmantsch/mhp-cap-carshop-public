@@ -66,9 +66,6 @@ entity Orders : cuid, managed
         @title : '{i18n>OrderID}'
         @Core.Computed;
     Items : Composition of many OrderItems on Items.parent = $self;
-   
-    virtual total : Decimal(9,2)
-        @readonly;
     currency : Currency;
     price : Decimal(9,2);
     customer : Association to one Customers;

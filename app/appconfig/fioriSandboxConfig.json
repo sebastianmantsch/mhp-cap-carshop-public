@@ -1,0 +1,92 @@
+{
+  "services": {
+    "LaunchPage": {
+      "adapter": {
+        "config": {
+          "catalogs": [],
+          "groups": [
+            {
+              "id": "Carshop",
+              "title": "Carshop",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "browse.browse",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Browse Cars",
+                    "targetURL": "#Cars-display"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "orders.admin",
+              "title": "Administration",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "orders.admin",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Orders",
+                    "targetURL": "#Orders-manage"
+                  }
+                }
+               
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "NavTargetResolution": {
+      "config": {
+        "enableClientSideTargetResolution": true
+      }
+    },
+    "ClientSideTargetResolution": {
+      "adapter": {
+        "config": {
+          "inbounds": {
+            "BrowseCars": {
+              "semanticObject": "Cars",
+              "action": "display",
+              "title": "Browse Cars",
+              "signature": {
+                "parameters": {
+                  "Cars.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=browse.browse",
+                "url": "/browse/webapp"
+              }
+            },
+            "ManageOrders": {
+              "semanticObject": "Orders",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=orders.admin",
+                "url": "/admin/webapp"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

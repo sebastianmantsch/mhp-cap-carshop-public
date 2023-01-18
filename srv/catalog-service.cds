@@ -12,14 +12,7 @@ service CatalogService @(path:'/browse') {
 
   //@readonly entity ListOfCars as select distinct model from Cars as model;
   
-  @requires: 'authenticated-user'
-  entity Orders as Select from my.Orders, my.OrderItems{
-    @Core.Computed
-    sum(OrderItems.amount) as total: Integer
-  }  where OrderItems.parent.OrderNo = Orders.OrderNo;
 
-
- annotate Orders  with @odata.draft.enabled;
   annotate Cars with {
     price @Measures.Unit : currency_code @Measures.ISOCurrency : 'currency_code';
 

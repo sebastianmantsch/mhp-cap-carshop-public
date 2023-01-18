@@ -7,8 +7,6 @@ service AdminService @(requires:'authenticated-user') {
 }
 
 
-// Enable Fiori Draft for Orders
-annotate AdminService.Orders with @odata.draft.enabled;
 
 
 extend service AdminService with {
