@@ -51,7 +51,8 @@ annotate CatalogService.Cars with @(
         HeaderInfo: {
             TypeName: '{i18n>Car}',
             TypeNamePlural: '{i18n>Cars}',
-            Description: {Value: model}
+            Description: {Value: model},
+            ImageUrl: image
         },
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Description}', Target: '@UI.FieldGroup#Descr'},

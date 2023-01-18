@@ -20,7 +20,8 @@
         "watch-createorder": "cds watch --open createorder/webapp/index.html?sap-ui-xx-viewCache=false",
         "undeploy": "cf undeploy carshop --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
-        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+        "watch-managecars": "cds watch --open managecars/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "cds": {
         "requires": {
@@ -58,11 +59,12 @@
     "sapux": [
         "app/admin",
         "app/browse",
-        "app/createorder"
+        "app/createorder",
+        "app/managecars"
     ],
     "devDependencies": {
         "@sap/ux-specification": "^1.102.14",
-        "sqlite3": "^5.1.4",
-        "rimraf": "^3.0.2"
+        "rimraf": "^3.0.2",
+        "sqlite3": "^5.1.4"
     }
 }

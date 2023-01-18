@@ -40,6 +40,10 @@ modules:
       - commhpcreateordercreateorder.zip
       name: commhpcreateordercreateorder
       target-path: resources/
+    - artifacts:
+      - commhpmanagecars.zip
+      name: commhpmanagecars
+      target-path: resources/
 - name: ordersadmin
   type: html5
   path: app/admin
@@ -84,6 +88,16 @@ modules:
 - name: commhpcreateordercreateorder
   type: html5
   path: app/createorder
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: commhpmanagecars
+  type: html5
+  path: app/managecars
   build-parameters:
     build-result: dist
     builder: custom
