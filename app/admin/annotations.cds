@@ -44,7 +44,8 @@ annotate service.OrderItems with {
 			Text: car.model,
 			FieldControl: #Mandatory
 		},
-		ValueList.entity:'Cars',
+		ValueList.entity:'Cars'
+       
 	);
 	amount @(
 		Common.FieldControl: #Mandatory

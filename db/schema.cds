@@ -11,7 +11,7 @@ from '@sap/cds/common';
 
 entity Cars : managed
 {
-    key ID : Integer;
+    key ID : Integer @title: '{i18n>CarID}';
     descr : localized String(1111)
         @title : '{i18n>Description}';
     model : String(100)
@@ -37,10 +37,64 @@ entity Cars : managed
     stock : Integer;
     engineType : EngineType;
     enginePowerKw : Integer;
-    color : String(30);
+    color : String(30) @title: '[i18n>Color}';
     image : LargeBinary
         @Core.MediaType : 'image/png';
 }
+
+annotate CatalogService.Cars with {
+    title @( Common: { Label: '{i18n>Title}'});
+}
+
+annotate CatalogService.Cars with @(
+	UI: {
+        HeaderInfo: {
+            TypeName: '{i18n>Car}',
+            TypeNamePlural: '{i18n>Cars}',
+            Description: {Value: model}
+        },
+		HeaderFacets: [
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Description}', Target: '@UI.FieldGroup#Descr'},
+		],
+		Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Price'},
+		],
+		FieldGroup#Descr: {
+			Data: [
+				{Value: descr},
+			]
+		},
+		FieldGroup#Price: {
+			Data: [
+				{Value: price, Label: '{i18n>Price}'},
+				{Value: currency_code, Label: '{i18n>Currency}'},
+			]
+		},
+	}
+);
+
+annotate CatalogService.Cars with @(
+	UI: {
+	  SelectionFields: [ ID, model, currency_code ],
+        LineItem: [
+            {Value: model, Label:'{i18n>Model}'},
+            {Value: price, Label: '{i18n>Price}'},
+			{Value: descr},
+			{
+				$Type : 'UI.DataField',
+				Value : engineType.name,
+			},
+			{
+				$Type : 'UI.DataField',
+				Value : manufacturer,
+			},
+        ]
+	},
+
+){
+	@Measures.ISOCurrency : currency.symbol
+    price
+};
 
 entity Manufacturers : managed
 {
@@ -68,30 +122,28 @@ entity Orders : cuid, managed
     Items : Composition of many OrderItems on Items.parent = $self;
     currency : Currency;
     price : Decimal(9,2);
-    customer : Association to one Customers;
+    customer : Composition of one {
+        key ID : UUID;
+        firstName : String(100)  @title : '{i18n>Firstname}';
+    lastName : String(100)  @title : '{i18n>Lastname}';
+    street : String(100)  @title : '{i18n>Street}';
+    housenumber : String(100)  @title : '{i18n>Housenumber}';
+    postalCode : String(100)  @title : '{i18n>Postalcode}';
+    city : String(100)  @title : '{i18n>City}';
+    country : String(100)  @title : '{i18n>Country}';
+    }
 }
+
+
 
 entity OrderItems
 {
     key ID : UUID;
     parent : Association to one Orders;
     car : Association to one Cars;
-    amount : Integer;
+    amount : Integer @title: '{i18n>Amount}';
     netAmount : Decimal(9,2);
 }
 
-entity Customers @cds.autoexpose
-{
-    key ID : UUID
-        @Core.Computed;
-    orders : Association to many Orders on orders.customer = $self;
-    firstName : String(100);
-    lastName : String(100);
-    street : String(100);
-    housenumber : String(100);
-    postalCode : String(100);
-    city : String(100);
-    country : String(100);
-}
 
 type EngineType : Association to one EngineTypes;

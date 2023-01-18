@@ -7,8 +7,6 @@ service AdminService @(requires:'authenticated-user') {
 }
 
 
-
-
 extend service AdminService with {
   entity OrderItems as select from my.OrderItems;
 }
@@ -19,7 +17,7 @@ extend service AdminService with {
    { grant: 'CREATE', to: 'admin' }, 
    { grant: 'READ', to: 'admin' }, 
   ]);
-
+@odata.draft.enabled
   annotate AdminService.Cars with {
     price @Measures.Unit : currency_code @Measures.ISOCurrency : 'currency_code';
 

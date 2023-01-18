@@ -36,6 +36,10 @@ modules:
       - browsebrowse.zip
       name: browsebrowse
       target-path: resources/
+    - artifacts:
+      - commhpcreateordercreateorder.zip
+      name: commhpcreateordercreateorder
+      target-path: resources/
 - name: ordersadmin
   type: html5
   path: app/admin
@@ -77,6 +81,16 @@ modules:
     disk-quota: 1000M
     keep-existing-routes: true
     memory: 1000M
+- name: commhpcreateordercreateorder
+  type: html5
+  path: app/createorder
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: carshop-uaa
   type: org.cloudfoundry.managed-service
