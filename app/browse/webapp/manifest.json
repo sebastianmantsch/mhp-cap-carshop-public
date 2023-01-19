@@ -148,6 +148,6 @@
     },
     "sap.cloud": {
         "public": true,
-        "service": "carshopBrowse"
+        "service": "carshop"
     }   
 }
