@@ -42,17 +42,18 @@ entity Cars : managed
         @Core.MediaType : 'image/png';
 }
 
-annotate CatalogService.Cars with {
+annotate Cars with {
     title @( Common: { Label: '{i18n>Title}'});
 }
 
-annotate CatalogService.Cars with @(
+annotate Cars with @(
 	UI: {
         HeaderInfo: {
             TypeName: '{i18n>Car}',
             TypeNamePlural: '{i18n>Cars}',
             Description: {Value: model},
-            ImageUrl: image
+            Image: image
+        
         },
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Description}', Target: '@UI.FieldGroup#Descr'},
@@ -74,7 +75,7 @@ annotate CatalogService.Cars with @(
 	}
 );
 
-annotate CatalogService.Cars with @(
+annotate Cars with @(
 	UI: {
 	  SelectionFields: [ ID, model, currency_code ],
         LineItem: [
@@ -87,7 +88,7 @@ annotate CatalogService.Cars with @(
 			},
 			{
 				$Type : 'UI.DataField',
-				Value : manufacturer,
+				Value : manufacturer.name,
 			},
         ]
 	},
@@ -121,18 +122,24 @@ entity Orders : cuid, managed
         @title : '{i18n>OrderID}'
         @Core.Computed;
     Items : Composition of many OrderItems on Items.parent = $self;
+    Customer: Association to one Customer ;
     currency : Currency;
     price : Decimal(9,2);
-    customer : Composition of one {
-        key ID : UUID;
-        firstName : String(100)  @title : '{i18n>Firstname}';
+}
+
+entity Customer 
+{
+    key ID : UUID;
+    firstName : String(100)  @title : '{i18n>Firstname}';
     lastName : String(100)  @title : '{i18n>Lastname}';
     street : String(100)  @title : '{i18n>Street}';
     housenumber : String(100)  @title : '{i18n>Housenumber}';
     postalCode : String(100)  @title : '{i18n>Postalcode}';
     city : String(100)  @title : '{i18n>City}';
     country : String(100)  @title : '{i18n>Country}';
-    }
+    email: String(100)  @title: '{i18n>Email}' @Communication.IsEmailAddress;
+    phone: String(100) @title: '{i18n>Phone}' @Communication.IsPhoneNumber;
+    Orders: Association to many Orders on Orders.Customer = $self;
 }
 
 

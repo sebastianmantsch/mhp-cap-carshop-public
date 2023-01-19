@@ -21,7 +21,8 @@
         "undeploy": "cf undeploy carshop --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
         "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
-        "watch-managecars": "cds watch --open managecars/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-managecars": "cds watch --open managecars/webapp/index.html?sap-ui-xx-viewCache=false",
+        "waadminflpect1": "cds watch --oadminflpect1/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "cds": {
         "requires": {
@@ -60,7 +61,8 @@
         "app/admin",
         "app/browse",
         "app/createorder",
-        "app/managecars"
+        "app/managecars",
+        "adminflpect1"
     ],
     "devDependencies": {
         "@sap/ux-specification": "^1.102.14",

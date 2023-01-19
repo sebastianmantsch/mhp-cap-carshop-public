@@ -6,33 +6,22 @@ annotate service.Orders with @(
         $Type : 'UI.FieldGroupType',
         Data : [
             {
-                $Type : 'UI.DataField',
-                Value : customer.firstName,
+                $Type: 'UI.DataField',
+                Value: Customer_ID
+            },
+             {
+                $Type  : 'UI.DataFieldForAnnotation',
+                Target : 'Customer/@Communication.Contact',
+                Label  : 'Customer'
             },
             {
                 $Type : 'UI.DataField',
-                Value : customer.lastName,
+                Value : Customer.firstName,
             },
             {
                 $Type : 'UI.DataField',
-                Value : customer.street,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : customer.housenumber,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : customer.postalCode,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : customer.city,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : customer.country,
-            },
+                Value : Customer.lastName,
+            }
         ],
     }
 );
@@ -63,6 +52,7 @@ annotate service.OrderItems with @(
 			Text: car.model,
 			FieldControl: #Mandatory
 		},
+      
 		ValueList.entity:'Cars',
         Common.ValueList : {
             $Type : 'Common.ValueListType',
@@ -98,6 +88,52 @@ annotate service.OrderItems with @(
 		Common.FieldControl: #Mandatory
 	);
 }
+annotate service.Customer with @(
+        title                  : '{i18n>Customer}',
+   Communication.Contact : {
+    $Type : 'Communication.ContactType',
+    adr : [
+        {
+            $Type : 'Communication.AddressType',
+            type : #work,
+            label: '{i18n>Address}',
+        country : country,
+        street : street,
+        building : housenumber,
+        code : postalCode,
+        locality : city
+        }
+    ],
+    email : [
+        {
+            $Type : 'Communication.EmailAddressType',
+            type : #work,
+            address : email
+        }
+    ],
+    fn : {
+        $edmJson : {
+            $Apply : [
+                {$Path: 'firstName'},
+                ' ',
+                {$Path: 'lastName'},    
+            ],
+            $Function : 'odata.concat',
+        },
+    },
+    tel : [
+        {
+            $Type : 'Communication.PhoneNumberType',
+            type : #preferred,
+            uri : phone
+        }
+    ]
+
+    
+});
+
+
+
 annotate service.Orders with @(
     UI.Facets : [
    

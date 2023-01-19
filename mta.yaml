@@ -1,6 +1,7 @@
 _schema-version: "3.2"
 ID: carshop
-version: 1.0.0
+description: Fiori elements app
+version: 1.0.1
 modules:
 - name: carshop-srv
   type: nodejs
@@ -18,11 +19,41 @@ modules:
   build-parameters:
     ignore:
     - node_modules/
+- name: carshop-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: carshop-destination-service
+    parameters:
+      content-target: true
+  - name: carshop-repo-host
+    parameters:
+      service-key:
+        name: carshop-repo-host-key
+  - name: carshop-uaa
+    parameters:
+      service-key:
+        name: carshop-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: carshop_repo_host
+          ServiceInstanceName: carshop-html5-srv
+          ServiceKeyName: carshop-repo-host-key
+          sap.cloud.service: carshop
+        - Authentication: OAuth2UserTokenExchange
+          Name: carshop_uaa
+          ServiceInstanceName: carshop-uaa
+          ServiceKeyName: carshop-uaa-key
+          sap.cloud.service: carshop
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
 - name: carshop-app-content
   type: com.sap.application.content
   path: .
   requires:
-  - name: carshop-html5-repo-host
+  - name: carshop-repo-host
     parameters:
       content-target: true
   build-parameters:
@@ -30,7 +61,7 @@ modules:
     requires:
     - artifacts:
       - ordersadmin.zip
-      name: ordersadmin
+      name: admin
       target-path: resources/
     - artifacts:
       - browsebrowse.zip
@@ -38,13 +69,13 @@ modules:
       target-path: resources/
     - artifacts:
       - commhpcreateordercreateorder.zip
-      name: commhpcreateordercreateorder
+      name: createorder
       target-path: resources/
     - artifacts:
       - commhpmanagecars.zip
-      name: commhpmanagecars
+      name: managecars
       target-path: resources/
-- name: ordersadmin
+- name: admin
   type: html5
   path: app/admin
   build-parameters:
@@ -64,28 +95,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: carshop
-  type: approuter.nodejs
-  path: app/
-  requires:
-  - name: srv-api
-    group: destinations
-    properties:
-      forwardAuthToken: true
-      name: srv-api
-      url: ~{srv-url}
-  - name: carshop-uaa
-  - name: carshop-destination-service
-    group: destinations
-    properties:
-      forwardAuthToken: false
-      name: ui5
-      url: https://ui5.sap.com
-  parameters:
-    disk-quota: 1000M
-    keep-existing-routes: true
-    memory: 1000M
-- name: commhpcreateordercreateorder
+- name: createorder
   type: html5
   path: app/createorder
   build-parameters:
@@ -95,7 +105,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: commhpmanagecars
+- name: managecars
   type: html5
   path: app/managecars
   build-parameters:
@@ -109,23 +119,15 @@ resources:
 - name: carshop-uaa
   type: org.cloudfoundry.managed-service
   parameters:
-    config:
-      tenant-mode: dedicated
-      xsappname: carshop
     path: ./xs-security.json
     service: xsuaa
+    service-name: carshop-uaa
     service-plan: application
-- name: carshop-html5-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: carshop-html5-app-host-service
-    service-plan: app-host
 - name: carshop-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -148,14 +150,11 @@ resources:
     service-plan: lite
   requires:
   - name: srv-api
+- name: carshop-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: carshop-html5-srv
+    service-plan: app-host
 parameters:
   deploy_mode: html5-repo
-  enable-parallel-deployments: true
-build-parameters:
-  before-all:
-  - builder: custom
-    commands:
-    - npm config set strict-ssl false
-    - npm install --production
-    - npx -p @sap/cds-dk cds build --production
-    - cp -r db/data gen/srv/srv/data

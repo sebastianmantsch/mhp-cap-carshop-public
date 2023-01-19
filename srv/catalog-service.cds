@@ -19,7 +19,7 @@ service CatalogService @(path:'/browse') {
 
   entity OrderItems as select from my.OrderItems;
 
-  entity Customer as select from my.Orders.customer;
+  entity Customer as select from my.Customer;
 
   annotate Cars with {
     price @Measures.Unit : currency_code @Measures.ISOCurrency : 'currency_code';
