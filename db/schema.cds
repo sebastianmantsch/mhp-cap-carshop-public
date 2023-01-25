@@ -122,7 +122,26 @@ entity Orders : cuid, managed
         @title : '{i18n>OrderID}'
         @Core.Computed;
     Items : Composition of many OrderItems on Items.parent = $self;
-    Customer: Association to one Customer ;
+    Customer: Association to one Customer @Common.ValueList : {
+        $Type : 'Common.ValueListType',
+        CollectionPath : 'Customer',
+       Parameters : [
+           {
+               $Type : 'Common.ValueListParameterInOut',
+               ValueListProperty : 'firstName',
+               LocalDataProperty: 'Customer/firstName'
+           },
+           {
+               $Type : 'Common.ValueListParameterDisplayOnly',
+               ValueListProperty : 'lastName'
+           },
+           {
+               $Type : 'Common.ValueListParameterInOut',
+               LocalDataProperty : Customer_ID,
+               ValueListProperty : 'ID',
+           },
+       ],
+    }  @Common.Label : '{i18n>Customer}';
     currency : Currency;
     price : Decimal(9,2);
 }

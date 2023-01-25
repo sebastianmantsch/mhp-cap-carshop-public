@@ -1,31 +1,6 @@
 using CatalogService as service from '../../srv/catalog-service';
 
 
-annotate service.Orders with @(
-    UI.FieldGroup #customerData : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Value: Customer_ID
-            },
-             {
-                $Type  : 'UI.DataFieldForAnnotation',
-                Target : 'Customer/@Communication.Contact',
-                Label  : 'Customer'
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : Customer.firstName,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : Customer.lastName,
-            }
-        ],
-    }
-);
-
 
 annotate service.OrderItems with @(
     UI.LineItem  : [
@@ -128,7 +103,6 @@ annotate service.Customer with @(
             uri : phone
         }
     ]
-
     
 });
 
@@ -149,5 +123,30 @@ annotate service.Orders with @(
             ID: 'orderItems',
             Label: 'Order Items'
         },
-    ]
+    ],
+     UI.FieldGroup #customerData : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type: 'UI.DataField',
+                Value: Customer_ID
+            },
+             {
+                $Type  : 'UI.DataFieldForAnnotation',
+                Target : 'Customer/@Communication.Contact',
+                Label  : 'Customer'
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : Customer.firstName,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : Customer.lastName,
+            }
+        ],
+    }
 );
+
+
+
