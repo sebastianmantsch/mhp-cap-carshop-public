@@ -108,7 +108,6 @@
             "css": []
         },
         "routing": {
-            "config": {},
             "routes": [
                 {
                     "pattern": ":?query:",
@@ -130,6 +129,7 @@
                         "settings": {
                             "entitySet": "Cars",
                             "variantManagement": "Page",
+                            "initialLoad": "Enabled",
                             "navigation": {
                                 "Cars": {
                                     "detail": {

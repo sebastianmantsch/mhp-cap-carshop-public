@@ -5,6 +5,7 @@
     "dependencies": {
         "@sap/audit-logging": "5.6.3",
         "@sap/cds": "6.4.0",
+        "@sap/cds-common-content": "^1.0.1",
         "@sap/cds-dk": "^6.4.0",
         "@sap/xsenv": "3.4.0",
         "@sap/xssec": "^3.2.15",
@@ -17,12 +18,11 @@
     },
     "scripts": {
         "start": "npx cds run",
-        "watch-createorder": "cds watch --open createorder/webapp/index.html?sap-ui-xx-viewCache=false",
         "undeploy": "cf undeploy carshop --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
         "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
         "watch-managecars": "cds watch --open managecars/webapp/index.html?sap-ui-xx-viewCache=false",
-        "waadminflpect1": "cds watch --oadminflpect1/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-createorder": "cds watch --open createorder/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "cds": {
         "requires": {
@@ -65,7 +65,7 @@
         "adminflpect1"
     ],
     "devDependencies": {
-        "@sap/ux-specification": "^1.102.14",
+        "@sap/ux-specification": "^1.102.15",
         "rimraf": "^3.0.2",
         "sqlite3": "^5.1.4"
     }

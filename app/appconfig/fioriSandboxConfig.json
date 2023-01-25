@@ -19,6 +19,14 @@
                     "title": "Browse Cars",
                     "targetURL": "#Cars-display"
                   }
+                },
+                {
+                  "id": "com.mhp.create.order.createorder",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Order Car",
+                    "targetURL": "#Cars-order"
+                  }
                 }
               ]
             },
@@ -83,7 +91,23 @@
                 "additionalInformation": "SAPUI5.Component=orders.admin",
                 "url": "/admin/webapp"
               }
-            }
+            },
+            "com-mhp-create-order-createorder-inbound": {
+              "signature": {
+                  "parameters": {},
+                  "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=com.mhp.create.order.createorder",
+                "url": "/createorder/webapp"
+              },
+              "semanticObject": "Car",
+              "action": "order",
+              "title": "{{flpTitle}}",
+              "subTitle": "{{flpSubtitle}}",
+              "icon": ""
+          }
           }
         }
       }
