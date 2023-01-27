@@ -119,7 +119,7 @@ annotate service.Orders with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
-            Target : 'Items/@UI.LineItem',
+            Target : 'Items/@UI.PresentationVariant#table',
             ID: 'orderItems',
             Label: 'Order Items'
         },
@@ -150,3 +150,17 @@ annotate service.Orders with @(
 
 
 
+annotate service.OrderItems with @(
+    UI.PresentationVariant #table : {
+        $Type : 'UI.PresentationVariantType',
+        Visualizations : [
+            '@UI.LineItem',
+        ],
+    }
+);
+annotate service.Orders with @(
+    UI.HeaderInfo : {
+        TypeName : 'Order',
+        TypeNamePlural : 'Orders ',
+    }
+);

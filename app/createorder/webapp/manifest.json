@@ -76,7 +76,8 @@
                 "sap.m": {},
                 "sap.ui.core": {},
                 "sap.ushell": {},
-                "sap.fe.templates": {}
+                "sap.fe.templates": {},
+                "sap.f": {}
             }
         },
         "contentDensities": {
@@ -109,12 +110,20 @@
             "css": []
         },
         "routing": {
-            "config": {},
+            "config": {
+                "flexibleColumnLayout": {
+                    "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+                    "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+                },
+                "routerClass": "sap.f.routing.Router"
+            },
             "routes": [
                 {
                     "pattern": "Orders({key}):?query:",
                     "name": "OrdersObjectPage",
-                    "target": "OrdersObjectPage"
+                    "target": [
+                        "OrdersObjectPage"
+                    ]
                 },
                 {
                     "pattern": "Orders({key})/Items({key2}):?query:",
@@ -145,10 +154,45 @@
                                             "createAtEnd": true
                                         }
                                     }
+                                },
+                                "Items/@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "enablePaste": false,
+                                        "enableFullScreen": true,
+                                        "enableExport": true,
+                                        "selectAll": true,
+                                        "selectionMode": "Auto",
+                                        "creationMode": {
+                                            "name": "Inline"
+                                        },
+                                        "quickVariantSelection": {
+                                            "showCounts": true
+                                        }  
+                                    }
+                                },
+                                "navigation":{
+                                  "Items" : {
+                                    "detail": {
+                                      "route" : "OrderItemsObjectPage"
+                                    }
+                                  }
+                                },
+                                "@com.sap.vocabularies.UI.v1.FieldGroup#customerData": {
+                                    "actions": {
+                                        "CreateCustomer": {
+                                            "press": "com.mhp.create.order.createorder.ext.controller.CreateOrderObjectPage.onCreateCustomer",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "Create Customer"
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            "showRelatedApps": true
                         }
-                    }
+                    },
+                    "controlAggregation": "beginColumnPages",
+                    "contextPattern": "/Orders({key})"
                 },
                 "OrderItemsObjectPage": {
                     "type": "Component",
@@ -162,6 +206,12 @@
                     }
                 }
             }
+        },
+        "rootView": {
+            "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+            "type": "XML",
+            "async": true,
+            "id": "appRootView"
         }
     },
     "sap.fiori": {

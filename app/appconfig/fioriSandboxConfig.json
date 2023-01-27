@@ -25,7 +25,7 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Order Car",
-                    "targetURL": "#Cars-order"
+                    "targetURL": "#Car-order"
                   }
                 }
               ]
