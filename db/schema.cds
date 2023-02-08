@@ -36,7 +36,8 @@ entity Cars : cuid, managed {
     enginePowerKw : Integer                          @title            : '{i18n>enginePowerKw}'  @Measures.Unit                                                                                      : '{i18n>KW}'    @Measures.ISOCurrency : 'KW';
     enginePowerPS : Integer                          @title            : '{i18n>enginePowerPS}'  @Core.Computed                                                                                                       @Measures.Unit        : '{i18n>HP}'  @Measures.ISOCurrency : '{i18n>HP}';
     color         : String(30)                       @title            : '{i18n>Color}';
-    image         : LargeBinary                      @title            : '{i18n>image}'          @Core.MediaType                                                                                     : 'image/png';
+    image         : LargeBinary                      @title            : '{i18n>image}'          @Core.MediaType     
+                                                                                    : 'image/png';
 }
 
 @Common.SemanticObject  : 'Car'
@@ -112,6 +113,14 @@ annotate Cars with @(
                     $Type : 'UI.DataField',
                     Value : image,
                 },
+                 {
+                    $Type : 'UI.DataField',
+                    Value : createdAt,
+                },
+                  {
+                    $Type : 'UI.DataField',
+                    Value : modifiedAt
+                }
             ],
         },
 
@@ -139,6 +148,15 @@ annotate Cars with @(
             {
                 $Type : 'UI.DataField',
                 Value : manufacturer_ID,
+            },
+              {
+                $Type : 'UI.DataField',
+                Value : createdAt,
+            },
+             {
+                $Type : 'UI.DataField',
+                Value : modifiedAt
+
             },
             {
             $Type : 'UI.DataFieldForIntentBasedNavigation',

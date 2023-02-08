@@ -13,6 +13,23 @@ File or Folder | Purpose
 `readme.md` | this getting started guide
 
 
+### Data Model
+![Model Carshop](/DataModel.png "Data Model")
+
+### UIs:
+
+admin: Administrate created car orders
+managecars: Administrate and create cars
+browse: View cars
+CreateOrder: Create Order for car
+
+
+### OData Services:
+/admin: admin service with CRUD authorizations for all draft enabled objects
+/browse (catalog-service): CRUD authorization to create order. Readonly for Cars
+
+
+
 ## Next Steps
 
 - Open a new terminal and run `cds watch` 
@@ -23,3 +40,4 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+

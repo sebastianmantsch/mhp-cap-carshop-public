@@ -2,6 +2,7 @@ _schema-version: "3.2"
 ID: carshop
 description: Fiori elements app
 version: 1.0.1
+
 modules:
 - name: carshop-srv
   type: nodejs
@@ -158,3 +159,4 @@ resources:
     service-plan: app-host
 parameters:
   deploy_mode: html5-repo
+  enable-parallel-deployments: true

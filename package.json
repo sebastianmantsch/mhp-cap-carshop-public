@@ -65,7 +65,7 @@
         "adminflpect1"
     ],
     "devDependencies": {
-        "@sap/ux-specification": "^1.102.15",
+        "@sap/ux-specification": "UI5-1.108",
         "rimraf": "^3.0.2",
         "sqlite3": "^5.1.4"
     }
