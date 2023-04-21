@@ -128,6 +128,7 @@
                     "options": {
                         "settings": {
                             "entitySet": "Orders",
+                            "initialLoad" : "Enabled",
                             "navigation": {
                                 "Items": {
                                     "detail": {
@@ -163,9 +164,18 @@
         "_version": "1.1.0",
         "uri": ""
     },
+    "sap.platform.cf": {
+        "oAuthScopes": [
+            "$XSAPPNAME.admin"
+        ]
+    },
     "sap.fiori": {
         "_version": "1.1.0",
         "registrationIds": [],
         "archeType": "transactional"
-    }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "carshop"
+    }   
 }

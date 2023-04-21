@@ -1,17 +1,25 @@
 using { mhp.capire.carshop as my } from '../db/schema';
 
 service AdminService @(requires:'authenticated-user') {
-  entity Cars as projection on my.Cars;
-  entity Manufactures as projection on my.Manufacturers;
+ 
+   @odata.draft.enabled
+   entity Cars     as projection on  my.Cars {
+      *,
+      enginePowerKw * 1.35962 as enginePowerPS : Integer @title : '{i18n>enginePowerPS}'   @Core.Computed @Measures.Unit: '{i18n>HP}' @Measures.ISOCurrency : 'HP',
+    
+    }
+    excluding {
+      createdBy,
+      modifiedBy
+    };
   entity Orders as select from my.Orders;
-}
-
-// Enable Fiori Draft for Orders
-annotate AdminService.Orders with @odata.draft.enabled;
-
-extend service AdminService with {
+  
+  
+  entity Manufacturers as projection on my.Manufacturers;
   entity OrderItems as select from my.OrderItems;
+
 }
+
 
 // Restrict access to orders to users with role "admin"
  annotate AdminService.Orders with  @( restrict: [
@@ -19,3 +27,7 @@ extend service AdminService with {
    { grant: 'CREATE', to: 'admin' }, 
    { grant: 'READ', to: 'admin' }, 
   ]);
+
+  
+
+

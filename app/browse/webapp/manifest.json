@@ -37,6 +37,12 @@
                     "subTitle": "",
                     "icon": ""
                 }
+            },
+            "outbounds": {
+                "com-mhp-create-order-createorder-inbound": {
+                    "semanticObject": "Car",
+                    "action": "order"
+                }
             }
         }
     },
@@ -105,6 +111,7 @@
                     "options": {
                         "settings": {
                             "entitySet": "Cars",
+                            "initialLoad": "Enabled",
                             "variantManagement": "Page",
                             "navigation": {
                                 "Cars": {
@@ -122,7 +129,19 @@
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "entitySet": "Cars"
+                            "entitySet": "Cars",
+                            "content": {
+                                "header": {
+                                    "actions": {
+                                        "createOrder": {
+                                            "id": "createOrderButton",
+                                            "text": "{i18n>createOrder}",
+                                            "press": "browse.browse.custom.ObjectPageExtController.createOrder",
+                                            "requiresSelection": false
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -145,5 +164,9 @@
         "_version": "1.1.0",
         "registrationIds": [],
         "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "carshop"
     }
 }

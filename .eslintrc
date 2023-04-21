@@ -6,7 +6,7 @@
         "jest": true
     },
     "parserOptions": {
-        "ecmaVersion": 2017
+        "ecmaVersion": "latest"
     },
     "globals": {
         "SELECT": true,
@@ -15,7 +15,8 @@
         "DELETE": true,
         "CREATE": true,
         "DROP": true,
-        "cds": true
+        "cds": true,
+        "sap": true
     },
     "rules": {
         "no-console": "off",

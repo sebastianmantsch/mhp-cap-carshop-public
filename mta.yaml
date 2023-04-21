@@ -1,96 +1,180 @@
 _schema-version: "3.2"
 ID: carshop
-version: 1.0.0
+description: Fiori elements app
+version: 1.0.1
+
 modules:
-- name: carshop-db-deployer
-  type: hdb
-  path: gen/db
-  requires:
-  - name: carshop-uaa
-  - name: carshop-db
-  parameters:
-    buildpack: nodejs_buildpack
-    disk-quota: 1024M
-    memory: 256M
-- name: carshop-srv
-  type: nodejs
-  path: gen/srv
-  requires:
-  - name: carshop-uaa
-  - name: carshop-db
-  provides:
-  - name: srv-api
-    properties:
-      srv-url: ${default-url}
-  parameters:
-    buildpack: nodejs_buildpack
-    disk-quota: 1024M
-    memory: 512M
-- name: carshop-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: carshop-html5-repo-host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
+  - name: carshop-srv
+    type: nodejs
+    path: gen/srv
     requires:
-    - artifacts:
-      - ordersadmin.zip
-      name: ordersadmin
-      target-path: resources/
-    - artifacts:
-      - browsebrowse.zip
-      name: browsebrowse
-      target-path: resources/
-- name: ordersadmin
-  type: html5
-  path: app/admin
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: browsebrowse
-  type: html5
-  path: app/browse
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+      - name: carshop-uaa
+      - name: carshop-db
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 1024M
+      memory: 512M
+    build-parameters:
+      ignore:
+        - node_modules/
+  - name: carshop-dest-content
+    type: com.sap.application.content
+    requires:
+      - name: carshop-destination-service
+        parameters:
+          content-target: true
+      - name: carshop-repo-host
+        parameters:
+          service-key:
+            name: carshop-repo-host-key
+      - name: carshop-uaa
+        parameters:
+          service-key:
+            name: carshop-uaa-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: carshop_repo_host
+              ServiceInstanceName: carshop-html5-srv
+              ServiceKeyName: carshop-repo-host-key
+              sap.cloud.service: carshop
+            - Authentication: OAuth2UserTokenExchange
+              Name: carshop_uaa
+              ServiceInstanceName: carshop-uaa
+              ServiceKeyName: carshop-uaa-key
+              sap.cloud.service: carshop
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+  - name: carshop-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: carshop-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - ordersadmin.zip
+          name: admin
+          target-path: resources/
+        - artifacts:
+            - browsebrowse.zip
+          name: browsebrowse
+          target-path: resources/
+        - artifacts:
+            - commhpcreateordercreateorder.zip
+          name: createorder
+          target-path: resources/
+        - artifacts:
+            - commhpmanagecars.zip
+          name: managecars
+          target-path: resources/
+  - name: admin
+    type: html5
+    path: app/admin
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+  - name: browsebrowse
+    type: html5
+    path: app/browse
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+  - name: createorder
+    type: html5
+    path: app/createorder
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+  - name: managecars
+    type: html5
+    path: app/managecars
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+
+  - name: carshop-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: carshop-db
 resources:
-- name: carshop-uaa
-  type: org.cloudfoundry.managed-service
-  parameters:
-    path: ./xs-security.json
-    service: xsuaa
-    service-plan: application
-- name: carshop-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    service: hana
-    service-plan: hdi-shared
-  properties:
-    hdi-service-name: ${service-name}
-- name: carshop-html5-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: carshop-html5-app-host-service
-    service-plan: app-host
+  - name: carshop-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: carshop-uaa
+      service-plan: application
+  - name: carshop-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: carshop-srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: carshop-destination-service
+      service-plan: lite
+    requires:
+      - name: srv-api
+  - name: carshop-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: carshop-html5-srv
+      service-plan: app-host
+  - name: carshop-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
-build-parameters:
-  before-all:
-  - builder: custom
-    commands:
-    - npm config set strict-ssl false
-    - npm install --production
-    - npx -p @sap/cds-dk cds build --production
