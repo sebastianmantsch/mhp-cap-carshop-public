@@ -4,9 +4,10 @@
   "description": "Business Application",
   "dependencies": {
     "@sap/audit-logging": "5.6.3",
-    "@sap/cds": "6.4.0",
+    "@sap/cds": "^6.4.0",
     "@sap/cds-common-content": "1.0.1",
-    "@sap/cds-dk": "6.4.0",
+    "@sap/cds-dk": "^6.4.0",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
     "@sap/xsenv": "3.4.0",
     "@sap/xssec": "^3.2.15",
     "debug": "4.3.4",
@@ -14,8 +15,7 @@
     "hdb": "^0.19.0",
     "passport": "^0.6.0",
     "rimraf": "^3.0.2",
-    "sqlite3": "^5.1.4",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21"
+    "sqlite3": "^5.1.4"
   },
   "scripts": {
     "start": "npx cds run",
@@ -40,7 +40,7 @@
         "kind": "jwt"
       },
       "db": {
-        "kind": "sql",
+        "kind": "sqlite",
         "credentials": {
           "database": "db.sqlite"
         }
@@ -68,10 +68,12 @@
     "app/browse",
     "app/createorder",
     "app/managecars",
-    "adminflpect1"
+    "adminflpect1",
+    "app/template",
+    "app/template_custom"
   ],
   "devDependencies": {
-    "@sap/ux-specification": "UI5-1.108",
+    "@sap/ux-specification": "^1.108.7",
     "rimraf": "^3.0.2",
     "sqlite3": "^5.1.4"
   }

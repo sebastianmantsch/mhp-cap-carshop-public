@@ -173,8 +173,8 @@ annotate Cars with @(
 );
 
  
-entity Manufacturers : cuid, managed {
-    key ID      : UUID @Common.Text : 'name' @Common.TextArrangement : #TextOnly;
+entity Manufacturers :  managed {
+    key ID      : Integer @Common.Text : 'name' @Common.TextArrangement : #TextOnly;
         name    : String(10)
         @title : '{i18n>Manufacturer}';
         descr   : String(111);
