@@ -30,7 +30,8 @@ sap.ui.define([
 
             // Read routing arguments for later use (e.g. back navigation)
 	        this.sManufacturerID = oEvent.getParameter("arguments").objectId;
-	        this.sCarID = oEvent.getParameter("arguments").carId; 
+	        this.sCarID = oEvent.getParameter("arguments").carId;
+            this.bIsActiveEntity = oEvent.getParameter("arguments").isActiveEntity;
 
 	        // Set the layout to three Column layout
 	        this.getModel("appView").setProperty("/layout", "ThreeColumnsMidExpanded"); 
@@ -38,7 +39,8 @@ sap.ui.define([
             // After the metamodel was loaded (Promise) create the binding path
             this.getModel().metadataLoaded().then(() => {
                 const sCarPath = this.getModel().createKey("Cars", {
-                    ID: this.sCarID
+                    ID: this.sCarID,
+                    IsActiveEntity: this.bIsActiveEntity
                 }); 
 
                 // Bind this car to the view
