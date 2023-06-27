@@ -15,6 +15,16 @@ sap.ui.define([], function () {
             }
 
             return parseFloat(sValue).toFixed(2);
+        },
+
+        formatStockState: function (sValue) {
+            if (sValue > 10) {
+                return sap.ui.core.ValueState.Success;
+            } else if (sValue === 0) {
+                return sap.ui.core.ValueState.Error;
+            } else {
+                return sap.ui.core.ValueState.Warning;
+            }
         }
     };
 });

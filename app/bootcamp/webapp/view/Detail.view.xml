@@ -53,6 +53,9 @@
                     <Column>
                         <Text text="{i18n>detailLineItemTableEngineTypeColumn}"/>
                     </Column>
+                    <Column>
+                        <Text text="{i18n>detailLineItemTableStockColumn}"/>
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
@@ -68,6 +71,12 @@
                                 unit="{currency_code}" />
                             <ObjectIdentifier
                                 text="{engineType/name}" />
+                            <ObjectNumber 
+                                number="{stock}"
+                                state="{
+                                    path: 'stock',
+                                    formatter: '.formatter.formatStockState'
+                                }"/>
                         </cells>
                     </ColumnListItem>
                 </items>
