@@ -13,6 +13,9 @@ sap.ui.define([
         /* =========================================================== */
 
         onInit: function () {
+            // Register to react on routing events for route "car" as configured in the manifest
+            this.getRouter().getRoute("car").attachPatternMatched(this._onRouteMatched, this);
+
         },
 
         /* =========================================================== */
@@ -22,6 +25,13 @@ sap.ui.define([
         /* =========================================================== */
         /* begin: internal methods                                     */
         /* =========================================================== */
+
+        _onRouteMatched: function (oEvent) {
+
+            // Set the layout to three Column layout
+            this.getModel("appView").setProperty("/layout", "ThreeColumnsMidExpanded");
+
+        }
 
     });
 
