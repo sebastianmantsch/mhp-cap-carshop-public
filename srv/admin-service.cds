@@ -2,7 +2,7 @@ using { mhp.capire.carshop as my } from '../db/schema';
 
 service AdminService @(requires:'authenticated-user') {
  
-   @odata.draft.enabled
+  
    entity Cars     as projection on  my.Cars {
       *,
       enginePowerKw * 1.35962 as enginePowerPS : Integer @title : '{i18n>enginePowerPS}'   @Core.Computed @Measures.Unit: '{i18n>HP}' @Measures.ISOCurrency : 'HP',
