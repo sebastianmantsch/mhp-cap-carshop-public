@@ -22,7 +22,12 @@
             <Table
                 id="lineItemsList"
                 width="auto"
-                items="{cars}"
+                items="{
+                        path: 'cars',
+                        parameters: {
+                            expand: 'engineType'
+                        }
+                    }"
                 updateFinished=".onListUpdateFinished"
                 noDataText="{i18n>detailLineItemTableNoDataText}"
                 busyIndicatorDelay="{detailView>/lineItemTableDelay}">
@@ -45,6 +50,9 @@
                         hAlign="End">
                         <Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
                     </Column>
+                    <Column>
+                        <Text text="{i18n>detailLineItemTableEngineTypeColumn}"/>
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
@@ -58,6 +66,8 @@
                                     formatter: '.formatter.currencyValue'
                                 }"
                                 unit="{currency_code}" />
+                            <ObjectIdentifier
+                                text="{engineType/name}" />
                         </cells>
                     </ColumnListItem>
                 </items>
