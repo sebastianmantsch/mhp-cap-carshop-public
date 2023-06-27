@@ -6,7 +6,7 @@
     xmlns:form="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
 
-    <semantic:SemanticPage id="carPage">
+    <semantic:SemanticPage id="carPage" showFooter="true">
         <form:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Edit Car">
             <form:content>
                 <Label text="Car"/>
@@ -39,6 +39,11 @@
                     }"/>
             </form:content>
         </form:SimpleForm>
+
+        <semantic:footerMainAction>
+			<semantic:FooterMainAction press="onSaveCar"/>
+		</semantic:footerMainAction>
+
 
     </semantic:SemanticPage>
 

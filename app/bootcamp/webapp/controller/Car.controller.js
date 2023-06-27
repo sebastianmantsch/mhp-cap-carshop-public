@@ -1,7 +1,9 @@
 sap.ui.define([
     "./BaseController",
-    "../model/formatter"
-], function (BaseController, formatter) {
+    "../model/formatter",
+    "sap/m/MessageToast"
+    
+], function (BaseController, formatter, MessageToast) {
     "use strict";
 
     return BaseController.extend("phag.demo.bootcamp.controller.Detail", {
@@ -21,6 +23,38 @@ sap.ui.define([
         /* =========================================================== */
         /* event handlers                                              */
         /* =========================================================== */
+
+        onSaveCar: function () {
+            const oModel = this.getModel();
+
+            // Check for changes
+            if (oModel.hasPendingChanges()) {
+                
+                // Save the data changed in the OData model
+                oModel.submitChanges({
+                    success: () => {
+                        // Show success message in a Toast
+                        MessageToast.show("Car data saved");
+                        // Navigate to the previous view after saving
+                        this.getRouter().navTo("object", {
+                            objectId: this.sManufacturerID
+                        });
+                    },
+                    error: () => {
+                        // Display error and do nothing more
+                        MessageToast.show("Error while saving!");
+                    }
+                });
+            } else {
+                // No changes message
+                MessageToast.show("No changes");
+                // Navigate to the previous view after message
+                this.getRouter().navTo("object", {
+                    objectId: this.sManufacturerID
+                });
+            }
+            
+        },
 
         /* =========================================================== */
         /* begin: internal methods                                     */
