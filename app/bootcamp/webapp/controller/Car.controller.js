@@ -65,7 +65,6 @@ sap.ui.define([
             // Read routing arguments for later use (e.g. back navigation)
 	        this.sManufacturerID = oEvent.getParameter("arguments").objectId;
 	        this.sCarID = oEvent.getParameter("arguments").carId;
-            this.bIsActiveEntity = oEvent.getParameter("arguments").isActiveEntity;
 
 	        // Set the layout to three Column layout
 	        this.getModel("appView").setProperty("/layout", "ThreeColumnsMidExpanded"); 
