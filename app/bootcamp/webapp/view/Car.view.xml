@@ -1,0 +1,11 @@
+<mvc:View
+    controllerName="phag.demo.bootcamp.controller.Car"
+    xmlns="sap.m"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <semantic:SemanticPage
+        id="carPage"> 
+    </semantic:SemanticPage>
+
+</mvc:View>
