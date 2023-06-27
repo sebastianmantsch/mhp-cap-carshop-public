@@ -107,7 +107,7 @@
           ]
         },
         {
-          "pattern": "Manufacturers/{objectId}/Car/{carId}",
+          "pattern": "Manufacturers/{objectId}/Car/{carId}/{isActiveEntity}",
           "name": "car",
           "target": [
             "list",
