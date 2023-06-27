@@ -2,10 +2,44 @@
     controllerName="phag.demo.bootcamp.controller.Car"
     xmlns="sap.m"
     xmlns:semantic="sap.f.semantic"
-    xmlns:mvc="sap.ui.core.mvc">
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
 
-    <semantic:SemanticPage
-        id="carPage"> 
+    <semantic:SemanticPage id="carPage">
+        <form:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Edit Car">
+            <form:content>
+                <Label text="Car"/>
+                <Text text="{model}"/>
+                <Label text="Engine Power"/>
+                <Input value="{enginePowerKw}"/>
+                <Label text="Color"/>
+                <Select id="color" selectedKey="{color}">
+                    <items>
+                        <core:Item text="red" key="red"/>
+                        <core:Item text="blue" key="blue"/>
+                        <core:Item text="green" key="green"/>
+                        <core:Item text="black" key="black"/>
+                    </items>
+                </Select>
+                <core:Title text="Price"/>
+                <Label text="Price"/>
+                <StepInput min="1" max="200000" displayValuePrecision="0" step="1000"
+                    value="{
+                        path: 'price',
+                        type: 'sap.ui.model.odata.type.Decimal',
+                        formatOptions: {
+                            decimals: 0
+                        },
+                        constraints: {
+                            minimum: '1',
+                            maximum: '200000',
+                            scale: '0'
+                        }
+                    }"/>
+            </form:content>
+        </form:SimpleForm>
+
     </semantic:SemanticPage>
 
 </mvc:View>
