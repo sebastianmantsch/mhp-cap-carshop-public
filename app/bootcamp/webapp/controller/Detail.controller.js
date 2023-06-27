@@ -75,6 +75,13 @@ sap.ui.define([
             }
         },
 
+        onCarPress: function (oEvent) {
+            this.getRouter().navTo("car", {
+                objectId: oEvent.getSource().getBindingContext().getProperty("manufacturer_ID"),
+                carId: oEvent.getSource().getBindingContext().getProperty("ID")
+            })
+        },
+
         /* =========================================================== */
         /* begin: internal methods                                     */
         /* =========================================================== */

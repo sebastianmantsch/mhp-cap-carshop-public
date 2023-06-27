@@ -58,7 +58,9 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem
+                        type="Active"
+                        press="onCarPress">
                         <cells>
                             <ObjectIdentifier
                                 title="{model}"
