@@ -29,7 +29,7 @@ sap.ui.define([
 
             // Check for changes
             if (oModel.hasPendingChanges()) {
-                
+
                 // Save the data changed in the OData model
                 oModel.submitChanges({
                     success: () => {
@@ -73,8 +73,7 @@ sap.ui.define([
             // After the metamodel was loaded (Promise) create the binding path
             this.getModel().metadataLoaded().then(() => {
                 const sCarPath = this.getModel().createKey("Cars", {
-                    ID: this.sCarID,
-                    IsActiveEntity: this.bIsActiveEntity
+                    ID: this.sCarID
                 }); 
 
                 // Bind this car to the view

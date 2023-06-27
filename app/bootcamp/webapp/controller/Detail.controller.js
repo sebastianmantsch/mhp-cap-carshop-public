@@ -78,8 +78,7 @@ sap.ui.define([
         onCarPress: function (oEvent) {
             this.getRouter().navTo("car", {
                 objectId: oEvent.getSource().getBindingContext().getProperty("manufacturer_ID"),
-                carId: oEvent.getSource().getBindingContext().getProperty("ID"),
-                isActiveEntity: oEvent.getSource().getBindingContext().getProperty("IsActiveEntity"),
+                carId: oEvent.getSource().getBindingContext().getProperty("ID")
             })
         },
 
